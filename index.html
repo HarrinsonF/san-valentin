@@ -3,9 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>San Valentín News</title>
+    <title>San Valentín News ❤️</title>
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❤️</text></svg>">
+
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Courier+Prime&display=swap" rel="stylesheet">
     
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
     <style>
         :root {
             --bg-pink: #ffe6eb;
@@ -35,29 +40,9 @@
             transition: opacity 1s ease-in-out;
             cursor: pointer;
         }
-
-        .envelope-container {
-            text-align: center;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        .envelope-container img {
-            width: 250px;
-            max-width: 80vw;
-        }
-
-        .envelope-text {
-            font-family: 'Dancing Script', cursive;
-            font-size: 2.5rem;
-            color: var(--red-accent);
-            margin-top: 20px;
-        }
-
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
-            100% { transform: translateY(0px); }
-        }
+        .envelope-container { text-align: center; animation: float 3s ease-in-out infinite; }
+        .envelope-text { font-family: 'Dancing Script', cursive; font-size: 2.5rem; color: var(--red-accent); margin-top: 20px; }
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-15px); } 100% { transform: translateY(0px); } }
 
         #main-content {
             display: none;
@@ -67,155 +52,64 @@
             box-shadow: 0 0 20px rgba(0,0,0,0.05);
             opacity: 0;
             transition: opacity 1.5s ease-in;
+            position: relative;
+            z-index: 10;
         }
 
-        header {
-            text-align: center;
-            padding: 20px 0;
-            border-bottom: 2px solid var(--text-dark);
-            margin-bottom: 30px;
-        }
-
-        header h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            margin: 0;
-            letter-spacing: 2px;
-        }
-
+        header { text-align: center; padding: 20px 0; border-bottom: 2px solid var(--text-dark); margin-bottom: 30px; }
+        header h1 { font-family: 'Playfair Display', serif; font-size: 2.5rem; margin: 0; letter-spacing: 2px; }
         section { padding: 0 20px 40px 20px; }
-        
-        .title-cursive {
-            font-family: 'Dancing Script', cursive;
-            color: var(--red-accent);
-            font-size: 3rem;
-            text-align: center;
-            margin: 10px 0;
-        }
+        .title-cursive { font-family: 'Dancing Script', cursive; color: var(--red-accent); font-size: 3rem; text-align: center; margin: 10px 0; }
 
         .hero { text-align: center; }
         .hero h2 { font-size: 1.5rem; letter-spacing: 1px; margin-bottom: 5px;}
-        .photo-main {
-            width: 100%; max-width: 300px;
-            border: 4px solid var(--text-dark);
-            border-radius: 5px;
-            margin: 20px auto;
-            display: block;
-        }
+        .photo-main { width: 100%; max-width: 300px; border: 4px solid var(--text-dark); border-radius: 5px; margin: 20px auto; display: block; }
         
-        .btn-mission {
-            background-color: var(--bg-pink);
-            border: 2px solid var(--text-dark);
-            color: var(--text-dark);
-            padding: 15px 20px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: block;
-            margin: 30px auto;
-            font-family: 'Playfair Display', serif;
-        }
+        .btn-mission { background-color: var(--bg-pink); border: 2px solid var(--text-dark); color: var(--text-dark); padding: 15px 20px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: all 0.3s ease; display: block; margin: 30px auto; font-family: 'Playfair Display', serif; }
+        .btn-mission:hover { background-color: var(--text-dark); color: var(--bg-pink); transform: scale(1.05); }
 
-        .btn-mission:hover {
-            background-color: var(--text-dark);
-            color: var(--bg-pink);
-            transform: scale(1.05);
-        }
+        .coupons-container { display: flex; justify-content: space-between; gap: 10px; margin-top: 20px; }
+        .coupon { border: 2px dashed var(--red-accent); padding: 10px; text-align: center; font-size: 0.9rem; font-weight: bold; flex: 1; transition: transform 0.3s ease, background-color 0.3s ease; cursor: pointer; border-radius: 5px; }
+        .coupon:hover { transform: translateY(-10px); background-color: rgba(196, 43, 71, 0.1); }
 
-        .coupons-container {
-            display: flex;
-            justify-content: space-between;
-            gap: 10px;
-            margin-top: 20px;
-        }
-        .coupon {
-            border: 2px dashed var(--red-accent);
-            padding: 10px;
-            text-align: center;
-            font-size: 0.9rem;
-            font-weight: bold;
-            flex: 1;
-            transition: transform 0.3s ease, background-color 0.3s ease;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-        .coupon:hover {
-            transform: translateY(-10px);
-            background-color: rgba(196, 43, 71, 0.1);
-        }
-
-        .reasons ol {
-            font-family: 'Courier Prime', monospace;
-            font-size: 1.1rem;
-            line-height: 1.8;
-            padding-left: 20px;
-        }
+        .reasons ol { font-family: 'Courier Prime', monospace; font-size: 1.1rem; line-height: 1.8; padding-left: 20px; }
         .reasons li { margin-bottom: 15px; }
-        .reasons li::marker {
-            color: var(--red-accent);
-            font-size: 1.5rem;
-            font-weight: bold;
-            font-family: 'Playfair Display', serif;
-        }
+        .reasons li::marker { color: var(--red-accent); font-size: 1.5rem; font-weight: bold; font-family: 'Playfair Display', serif; }
 
-        .form-container {
-            border: 2px solid var(--text-dark);
-            padding: 20px;
-            background-color: var(--white);
-            border-radius: 8px;
-            margin-bottom: 30px;
-        }
-        
-        .form-container label {
-            display: block;
-            font-size: 1.2rem;
-            margin-bottom: 15px;
-            cursor: pointer;
-            font-family: 'Courier Prime', monospace;
-        }
-
-        .btn-submit {
-            background-color: var(--red-accent);
-            color: var(--white);
-            border: none;
-            padding: 15px 30px;
-            font-size: 1.2rem;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 100%;
-            font-family: 'Playfair Display', serif;
-            transition: background-color 0.3s;
-        }
+        .form-container { border: 2px solid var(--text-dark); padding: 20px; background-color: var(--white); border-radius: 8px; margin-bottom: 30px; }
+        .form-container label { display: block; font-size: 1.2rem; margin-bottom: 15px; cursor: pointer; font-family: 'Courier Prime', monospace; }
+        .btn-submit { background-color: var(--red-accent); color: var(--white); border: none; padding: 15px 30px; font-size: 1.2rem; border-radius: 5px; cursor: pointer; width: 100%; font-family: 'Playfair Display', serif; transition: background-color 0.3s; }
         .btn-submit:hover { background-color: #a02038; }
 
-        .polaroid-gallery {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-top: 30px;
-        }
-        .polaroid {
-            background: #fff;
-            padding: 10px 10px 40px 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            width: 120px;
-            transition: transform 0.3s;
-        }
+        .polaroid-gallery { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 15px; margin-top: 30px; }
+        .polaroid { background: #fff; padding: 10px 10px 40px 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); width: 120px; transition: transform 0.3s; }
         .polaroid img { width: 100%; height: auto; display: block; }
-        
         .polaroid:nth-child(1) { transform: rotate(-5deg); }
         .polaroid:nth-child(2) { transform: rotate(2deg); }
         .polaroid:nth-child(3) { transform: rotate(-3deg); }
-        
-        .polaroid:hover {
-            transform: scale(1.1) rotate(0deg);
-            z-index: 10;
+        .polaroid:hover { transform: scale(1.1) rotate(0deg); z-index: 10; }
+
+        .heart {
+            position: fixed;
+            font-size: 1.5rem;
+            color: var(--red-accent);
+            bottom: -5vh;
+            transform: translateY(0);
+            animation: floatUp linear infinite;
+            z-index: 1;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+        @keyframes floatUp {
+            to { transform: translateY(-110vh) rotate(360deg); }
         }
     </style>
 </head>
 <body>
+
+    <audio id="bg-music" loop>
+        <source src="cancion.mp3" type="audio/mpeg">
+    </audio>
 
     <div id="envelope-screen" onclick="openEnvelope()">
         <div class="envelope-container">
@@ -233,7 +127,6 @@
         <section class="hero">
             <h2>WILL YOU BE ME</h2>
             <div class="title-cursive">Valentine?</div>
-            
             <h3 style="background: var(--text-dark); color: var(--bg-pink); display: inline-block; padding: 5px 10px;">¡TE HAN ELEGIDO!</h3>
             
             <img src="foto-principal.jpg" alt="Foto principal" class="photo-main">
@@ -247,8 +140,8 @@
             <button class="btn-mission" onclick="scrollToForm()">¿ACEPTAS LA MISIÓN DE SER MI SAN VALENTÍN?</button>
 
             <div class="coupons-container">
+                <div class="coupon">VALE POR UNA<br>TARDE DE PELÍCULAS</div>
                 <div class="coupon">VALE POR UN<br>MASAJE</div>
-                <div class="coupon">VALE POR UNA<br>SALIDA AL CINE</div>
                 <div class="coupon">VALE POR MUCHOS<br>BESITOS</div>
             </div>
         </section>
@@ -256,7 +149,6 @@
         <section class="reasons">
             <h2 style="text-align: center; font-size: 2rem; margin-bottom: 0;">5 Razones</h2>
             <div class="title-cursive" style="font-size: 2.2rem; margin-top: -10px;">por la que eres mi elección perfecta</div>
-            
             <ol>
                 <li>Tienes la sonrisa más linda del universo.</li>
                 <li>Contigo, cualquier día se siente especial.</li>
@@ -272,13 +164,11 @@
                 <div class="title-cursive">¿Quieres ser mi San Valentín?</div>
             </div>
 
-            <form action="https://formspree.io/f/mpqjqrbv" method="POST" class="form-container">
+            <form id="val-form" action="https://formspree.io/f/mpqjqrbv" method="POST" class="form-container">
                 <p><strong>Marca tu respuesta:</strong></p>
-                
                 <label><input type="radio" name="respuesta" value="Sí, por supuesto" required> Sí, por supuesto</label>
                 <label><input type="radio" name="respuesta" value="OBVIO, me muero de la emoción"> OBVIO, me muero de la emoción</label>
                 <label><input type="radio" name="respuesta" value="Sí, con final feliz"> Sí, con final feliz *</label>
-
                 <button type="submit" class="btn-submit">Enviar mi respuesta ♡</button>
             </form>
 
@@ -291,27 +181,45 @@
     </div>
 
     <script>
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.innerHTML = '❤️';
+            heart.classList.add('heart');
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 3 + 's';
+            heart.style.fontSize = Math.random() * 1 + 1 + 'rem';
+            document.body.appendChild(heart);
+            setTimeout(() => { heart.remove(); }, 6000);
+        }
+
         function openEnvelope() {
             const screen = document.getElementById('envelope-screen');
             const content = document.getElementById('main-content');
-            
+            const audio = document.getElementById('bg-music');
             screen.style.opacity = '0';
-            
+            audio.play().catch(error => { console.log("Interacción requerida para audio."); });
             setTimeout(() => {
-                screen.style.display = 'none'; 
+                screen.style.display = 'none';
                 content.style.display = 'block';
-                
-                setTimeout(() => {
-                    content.style.opacity = '1';
-                }, 50);
-            }, 1000); 
+                setInterval(createHeart, 400);
+                setTimeout(() => { content.style.opacity = '1'; }, 50);
+            }, 1000);
         }
 
         function scrollToForm() {
-            document.getElementById('final-section').scrollIntoView({ 
-                behavior: 'smooth' 
-            });
+            document.getElementById('final-section').scrollIntoView({ behavior: 'smooth' });
         }
+
+        document.getElementById('val-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            confetti({
+                particleCount: 150,
+                spread: 80,
+                origin: { y: 0.6 },
+                colors: ['#c42b47', '#ffe6eb', '#ffb3c6']
+            });
+            setTimeout(() => { this.submit(); }, 2500);
+        });
     </script>
 </body>
 </html>
